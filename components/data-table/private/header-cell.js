@@ -92,7 +92,9 @@ var DataTableHeaderCell = (0, _createReactClass2.default)({
     /**
      * Width of column. This is required for advanced/fixed layout tables. Please provide units. (`rems` are recommended)
      */
-    width: _propTypes2.default.string
+    width: _propTypes2.default.string,
+
+    filter: _propTypes2.default.node
   },
   getInitialState: function getInitialState() {
     return {
@@ -141,37 +143,84 @@ var DataTableHeaderCell = (0, _createReactClass2.default)({
     var expandedSortDirection = sortDirection === 'desc' ? 'descending' : 'ascending';
     var ariaSort = isSorted ? expandedSortDirection : 'none';
     var fixedLayoutSubRenders = {
-      sortable: _react2.default.createElement("a", {
-        href: "javascript:void(0)" // eslint-disable-line no-script-url
-        ,
-        className: "slds-th__action slds-text-link_reset",
-        onClick: this.handleSort,
-        role: "button",
-        tabIndex: "0"
-      }, _react2.default.createElement("span", {
-        className: "slds-assistive-text"
-      }, this.props.assistiveTextForColumnSort || this.props.assistiveText.columnSort, ' '), _react2.default.createElement("span", {
-        className: "slds-truncate",
-        title: labelType === 'string' ? label : undefined
-      }, label), _react2.default.createElement(_icon2.default, {
-        className: "slds-is-sortable__icon",
-        category: "utility",
-        name: sortDirection === 'desc' ? 'arrowdown' : 'arrowup',
-        size: "x-small"
-      }), sortDirection ? _react2.default.createElement("span", {
-        className: "slds-assistive-text",
-        "aria-live": "assertive",
-        "aria-atomic": "true"
-      }, sortDirection === 'asc' ? this.props.assistiveTextForColumnSortedAscending || this.props.assistiveText.columnSortedAscending : this.props.assistiveTextForColumnSortedDescending || this.props.assistiveText.columnSortedDescending) : null),
-      notSortable: _react2.default.createElement("span", {
-        className: "slds-p-horizontal_x-small",
-        style: {
-          display: 'flex'
-        }
-      }, _react2.default.createElement("span", {
-        className: "slds-truncate",
-        title: labelType === 'string' ? label : undefined
-      }, label))
+      sortable: _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { style: { float: 'right' } },
+          this.props.filter
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'a',
+            {
+              href: 'javascript:void(0)' // eslint-disable-line no-script-url
+              , className: 'slds-th__action slds-text-link_reset',
+              onClick: this.handleSort,
+              role: 'button',
+              tabIndex: '0'
+            },
+            _react2.default.createElement(
+              'span',
+              { className: 'slds-assistive-text' },
+              this.props.assistiveTextForColumnSort || this.props.assistiveText.columnSort,
+              ' '
+            ),
+            _react2.default.createElement(
+              'span',
+              {
+                className: 'slds-truncate',
+                title: labelType === 'string' ? label : undefined
+              },
+              label
+            ),
+            _react2.default.createElement(_icon2.default, {
+              className: 'slds-is-sortable__icon',
+              category: 'utility',
+              name: sortDirection === 'desc' ? 'arrowdown' : 'arrowup',
+              size: 'x-small'
+            }),
+            sortDirection ? _react2.default.createElement(
+              'span',
+              {
+                className: 'slds-assistive-text',
+                'aria-live': 'assertive',
+                'aria-atomic': 'true'
+              },
+              sortDirection === 'asc' ? this.props.assistiveTextForColumnSortedAscending || this.props.assistiveText.columnSortedAscending : this.props.assistiveTextForColumnSortedDescending || this.props.assistiveText.columnSortedDescending
+            ) : null
+          )
+        )
+      ),
+      notSortable: _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'div',
+          { style: { float: 'right' } },
+          this.props.filter
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'span',
+            { className: 'slds-p-horizontal_x-small', style: { display: 'flex' } },
+            _react2.default.createElement(
+              'span',
+              {
+                className: 'slds-truncate',
+                title: labelType === 'string' ? label : undefined
+              },
+              label
+            ),
+            this.props.filter
+          )
+        )
+      )
     };
     return _react2.default.createElement("th", {
       "aria-label": labelType === 'string' ? label : undefined,
