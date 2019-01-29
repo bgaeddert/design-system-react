@@ -329,6 +329,17 @@ function (_React$Component) {
         }
       }
     }
+  },{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.value === null && this.props.value !== null) {
+        this.setState({
+          value: this.props.value,
+          formattedValue: this.props.formatter(this.props.value),
+          inputValue: this.props.formatter(this.props.value)
+        });
+      }
+    }
   }, {
     key: "getDatePicker",
     value: function getDatePicker(_ref) {

@@ -188,6 +188,14 @@ var Timepicker = (0, _createReactClass2.default)({
       }
     }
   },
+  componentDidUpdate: function componentDidUpdate(prevProps) {
+    if (prevProps.value === null && this.props.value !== null) {
+      this.setState({
+        value: this.props.value,
+        strValue: this.props.formatter(this.props.value)
+      });
+    }
+  },
   getOptions: function getOptions() {
     var baseDate = new Date();
     var options = [];
